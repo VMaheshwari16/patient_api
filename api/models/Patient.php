@@ -44,4 +44,17 @@ class Patient {
     public function delete($id) {
         return $this->conn->query("DELETE FROM patients WHERE id=$id");
     }
+
+    public function patch($id, $data)
+    {
+        $fields = [];
+
+         foreach ($data as $key => $value) {
+            $fields[] = "$key = '{$value}'";
+        }
+
+        $sql = "UPDATE patients SET " . implode(", ", $fields) . " WHERE id = $id";
+        return $this->conn->query($sql);
+}
+
 }
